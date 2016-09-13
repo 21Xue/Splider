@@ -1,6 +1,7 @@
 package com.xyp;
 
 import com.xyp.rateCompare.model.CompareResultDto;
+import com.xyp.rateCompare.model.GoogleRateCheckDto;
 import com.xyp.readCVS.model.PriceAccuracyCVS;
 import com.xyp.readCVS.model.WebDriverFromHilton;
 

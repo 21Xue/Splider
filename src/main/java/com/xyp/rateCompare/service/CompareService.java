@@ -58,7 +58,7 @@ public class CompareService {
         return dataformat.format(cal.getTime());
     }
 
-    public CompareResultDto getDStorageRate(PriceAccuracyCVS.PriceAccuracyDTO dto) {
+    public CompareResultDto getDStorageRate(PriceAccuracyCVS.PriceAccuracyDTO dto) throws Exception {
         String accountCode = "HILTON";
         AvailRQCondition availRQCondition = AvailRQConditionUtil.getAvailRQConditionByAccount(translateToCompareDataDto(dto), accountCode);
         if (availRQCondition == null) {
