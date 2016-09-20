@@ -1,4 +1,4 @@
-package com.xyp.readCVS.model;
+package com.xyp.webDriver.model;
 
 /**
  * Created by DT288 on 2016/9/8.

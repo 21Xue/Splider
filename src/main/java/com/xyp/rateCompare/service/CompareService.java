@@ -80,12 +80,41 @@ public class CompareService {
         }
         Transaction.Result adapterRate = googleHiltonCheckService.getGoogleAdapterRate(availRQCondition);
         List<GoogleRateCheckDto> dstorageList = GoogleRateCheckUtil.getRoomRateFromGoogleApi(dstorageRate);
-        Collections.sort(dstorageList);
-        Collections.sort(hteList);
-        List<GoogleRateCheckDto> adapterList = GoogleRateCheckUtil.getAdapterFromGoogleApi(adapterRate);
-        Collections.sort(adapterList);
 
-        CompareResultDto compareResultDto = new CompareResultDto(dstorageList, adapterList, hteList);
+        GoogleRateCheckDto dstorage = Collections.min(dstorageList, new Comparator<GoogleRateCheckDto>() {
+            public int compare(GoogleRateCheckDto o1, GoogleRateCheckDto o2) {
+                double b1 = o1.getBaseRate().doubleValue();
+                double b2 = o2.getBaseRate().doubleValue();
+                if (b1 < b2) {
+                    return -1;
+                }
+                return 1;
+            }
+        });
+        GoogleRateCheckDto hte = Collections.min(hteList, new Comparator<GoogleRateCheckDto>() {
+            public int compare(GoogleRateCheckDto o1, GoogleRateCheckDto o2) {
+                double b1 = o1.getBaseRate().doubleValue();
+                double b2 = o2.getBaseRate().doubleValue();
+                if (b1 < b2) {
+                    return -1;
+                }
+                return 1;
+            }
+        });
+        List<GoogleRateCheckDto> adapterList = GoogleRateCheckUtil.getAdapterFromGoogleApi(adapterRate);
+
+        GoogleRateCheckDto adapter = Collections.min(adapterList, new Comparator<GoogleRateCheckDto>() {
+            public int compare(GoogleRateCheckDto o1, GoogleRateCheckDto o2) {
+                double b1 = o1.getBaseRate().doubleValue();
+                double b2 = o2.getBaseRate().doubleValue();
+                if (b1 < b2) {
+                    return -1;
+                }
+                return 1;
+            }
+        });
+
+        CompareResultDto compareResultDto = new CompareResultDto(dstorage, hte, adapter);
 
         return compareResultDto;
     }

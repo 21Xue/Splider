@@ -1,12 +1,8 @@
 package com.xyp;
 
 import com.xyp.rateCompare.model.CompareResultDto;
-import com.xyp.rateCompare.model.GoogleRateCheckDto;
 import com.xyp.readCVS.model.PriceAccuracyCVS;
-import com.xyp.readCVS.model.WebDriverFromHilton;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.xyp.webDriver.model.WebDriverFromHilton;
 
 /**
  * Created by DT288 on 2016/9/9.
