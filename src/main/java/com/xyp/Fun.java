@@ -54,109 +54,6 @@ public class Fun {
         System.out.print("asd");
     }
 
-//    public WebDriverFromHilton webDriver(String url) throws Exception {
-//        System.setProperty("webdriver.chrome.driver", toolURL);
-//        ChromeDriver driver = new ChromeDriver();
-//        driver.get(url);
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        List<WebElement> elements = driver.findElements(By.className("roomRateTable"));
-//        List<WebElement> needElement = new ArrayList<WebElement>();
-//        for (WebElement element : elements) {
-//            if (element.findElements(By.className("ratePackageFeaturedRates")).size() == 0) {
-//                needElement.add(element);
-//            }
-//        }
-//        List<MinPriceElement> priceMap = new ArrayList<MinPriceElement>();
-//
-//        for (WebElement element : needElement) {
-//            List<WebElement> list = element.findElements(By.tagName("tr"));
-//            for (WebElement trElement : list) {
-//
-//                String priceString = trElement.findElement(By.className("priceamount")).getText().replace("$", "").replace("*", "");
-//                Matcher m = p.matcher(priceString);
-//                priceString = m.replaceAll("").replace(",", "");
-//                String[] priceGroup = priceString.split("(\\s)");
-//                if (priceGroup.length > 1) {
-//                    priceString = priceGroup[1];
-//                }
-//
-//                if (!StringUtils.isEmpty(priceString)) {
-//                    priceMap.add(new MinPriceElement(trElement, Double.valueOf(priceString)));
-//                }
-//            }
-//        }
-//
-//        if (priceMap.size() == 0) {
-//            for (String win : driver.getWindowHandles()) {
-//                WebDriver close = driver.switchTo().window(win);
-//                close.close();
-//            }
-//            driver.quit();
-//            return new WebDriverFromHilton("0", "0", "0");
-//        }
-//
-//        MinPriceElement min = Collections.min(priceMap, new Comparator<MinPriceElement>() {
-//            public int compare(MinPriceElement o1, MinPriceElement o2) {
-//                double p1 = o1.getPrice();
-//                double p2 = o2.getPrice();
-//                if (p1 < p2) {
-//                    return -1;
-//                }
-//                return 1;
-//            }
-//        });
-//
-//        WebElement mine = min.getWebElement();
-//
-//        mine.findElement(By.tagName("a")).click();
-//
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String currentWindow = driver.getWindowHandle();
-//        Set<String> handles = driver.getWindowHandles();
-//
-//        Iterator<String> it = handles.iterator();
-//        WebDriver window = null;
-//        while (it.hasNext()) {
-//            String now = it.next();
-//            if (currentWindow.equals(now)) {
-//                continue;
-//            }
-//            window = driver.switchTo().window(now);
-//            System.out.println("title,url = " + window.getTitle() + "," + window.getCurrentUrl());
-//        }
-//        WebElement truePrice = window.findElement(By.tagName("tbody"));
-//
-//
-//        String price = "0";
-//        String tax = "0";
-//        String total = "0";
-//        if (truePrice.findElements(By.className("price")).size() > 3) {
-//            price = truePrice.findElements(By.className("price")).get(1).getText();
-//            tax = truePrice.findElements(By.className("price")).get(2).getText();
-//            total = truePrice.findElements(By.className("price")).get(3).getText();
-//        } else {
-//            price = truePrice.findElements(By.className("price")).get(1).getText();
-//            total = truePrice.findElements(By.className("price")).get(2).getText();
-//        }
-//
-//        for (String win : driver.getWindowHandles()) {
-//            WebDriver close = driver.switchTo().window(win);
-//            close.close();
-//        }
-//        driver.quit();
-//        return new WebDriverFromHilton(price, tax, total);
-//    }
-
 
     private class MinPriceElement {
 
@@ -189,7 +86,7 @@ public class Fun {
     @Test
     public void heheh() {
         try {
-            ReadCVSService r = new ReadCVSService("E:\\Code\\Splider\\price_accuracy_validation_report_Hilton_2016-09-18_to_2016-09-18.csv");
+            ReadCVSService r = new ReadCVSService("E:\\Code\\Splider\\price_accuracy_validation_report_Hilton_2016-09-21_to_2016-09-21.csv");
             String s = CSVtoJSONUtil.CSVtoJSON(r.readLine());
             PriceAccuracyCVS data = JsonUtil.fromJson(s, PriceAccuracyCVS.class);
             CompareService cs = new CompareService();
@@ -230,6 +127,7 @@ public class Fun {
                     if (cachePrice != googleAdaper) {
                         waringTypeList.add(WaringType.cached_priceVSgoogle_adaper);
                     }
+
 
                     if (hte == dstorage && hte == googleAdaper && googleAdaper == dstorage) {
                         waringTypeList.add(WaringType.Operation_is_Same);
