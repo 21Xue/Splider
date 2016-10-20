@@ -29,13 +29,21 @@ public class WebDriverService {
 
     private static void createMinPriceElement(List<WebElement> list, List<MinPriceElement> priceMap) {
         for (WebElement trElement : list) {
-
             String priceString = trElement.findElement(By.className("priceamount")).getText().replace("$", "").replace("*", "");
             Matcher m = p.matcher(priceString);
             priceString = m.replaceAll("").replace(",", "");
             String[] priceGroup = priceString.split("(\\s)");
             if (priceGroup.length > 1) {
-                priceString = priceGroup[1];
+                Double tempMinGroup = Double.MAX_VALUE;
+                for (String tempPrice : priceGroup) {
+                    if (!StringUtils.isEmpty(tempPrice)) {
+                        if (Double.valueOf(tempPrice) < tempMinGroup) {
+//                            System.out.print("This is group min");
+                            tempMinGroup = Double.valueOf(tempPrice);
+                        }
+                    }
+                }
+                priceString = String.valueOf(tempMinGroup);
             }
 
             if (!StringUtils.isEmpty(priceString)) {
@@ -48,35 +56,28 @@ public class WebDriverService {
         ChromeDriver driver = new ChromeDriver();
         driver.get(url);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<WebElement> elements = driver.findElements(By.className("roomRateTable"));
-        List<WebElement> needElement = new ArrayList<WebElement>();
+        List<WebElement> elements = driver.findElements(By.tagName("tr"));
+//        List<WebElement> needElement = new ArrayList<WebElement>();
         List<WebElement> calculationList = new ArrayList<WebElement>();
 
         for (WebElement element : elements) {
-            if (element.findElements(By.className("ratePackageFeaturedRates")).size() == 0) {
-                needElement.add(element);
-            } else {
-                for (WebElement calculation : element.findElements(By.className("ratePackageFeaturedRates"))) {
-                    String tempString = calculation.findElement(By.tagName("a")).getText();
-                    if (!StringUtils.isEmpty(tempString)) {
-                        if (!tempString.contains("HHONORS")) {
-                            calculationList.add(calculation);
-                        }
+            try {
+                String tempString = element.findElement(By.tagName("a")).getText();
+                if (!StringUtils.isEmpty(tempString)) {
+                    if (!tempString.contains("HHONORS")) {
+                        calculationList.add(element);
                     }
                 }
+            } catch (Exception e) {
+                System.out.print("no a tag in tr");
             }
         }
 
         List<MinPriceElement> priceMap = new ArrayList<MinPriceElement>();
-
-        for (WebElement element : needElement) {
-            List<WebElement> list = element.findElements(By.tagName("tr"));
-            createMinPriceElement(list, priceMap);
-        }
         createMinPriceElement(calculationList, priceMap);
 
 
@@ -136,7 +137,7 @@ public class WebDriverService {
             price = truePriceList.get(size - 3).findElement(By.className("price")).getText();
             tax = truePriceList.get(size - 2).findElement(By.className("price")).getText();
             total = truePriceList.get(size - 1).findElement(By.className("price")).getText();
-        }else {
+        } else {
             price = truePriceList.get(size - 2).findElement(By.className("price")).getText();
             total = truePriceList.get(size - 1).findElement(By.className("price")).getText();
         }

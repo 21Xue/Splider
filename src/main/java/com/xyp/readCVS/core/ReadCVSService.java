@@ -22,6 +22,12 @@ public class ReadCVSService {
         br = new BufferedReader(isw);
     }
 
+    public ReadCVSService(File file) throws Exception {
+        fis = new FileInputStream(file);
+        isw = new InputStreamReader(fis, ENCODE);
+        br = new BufferedReader(isw);
+    }
+
     // ==========以下是公开方法=============================
 
     /**

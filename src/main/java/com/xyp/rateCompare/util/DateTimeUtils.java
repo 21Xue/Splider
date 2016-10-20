@@ -29,7 +29,10 @@ public class DateTimeUtils {
     public static final String DATE_FORMAT_COMP = "yyyyMMdd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String TIME_FORMAT = "HH:mm:ss";
-    public static final String FULL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+    public static final String FULL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+
+    public static final String FULL_DATE_TIME_FORMAT2 = "yyyy-MM-dd'T'HH:mm:ss+00:00";
+
     public static final String DATE_FORMAT_COMP_YYMMDD = "yyyyMMdd";
     public static final String YYMMdd_HHmmss = "yyyyMMdd_HHmmss";
 

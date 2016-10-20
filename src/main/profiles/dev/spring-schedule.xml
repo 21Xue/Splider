@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       default-lazy-init="true" default-autowire="no">
+
+
+    <bean lazy-init="true" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="destroy">
+        <property name="triggers">
+            <list>
+                <bean name="testDataBase" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+                    <property name="jobDetail">
+                        <bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                            <property name="targetObject" ref="PushXML"/>
+                            <property name="targetMethod" value="testWhileTrue"/>
+                            <property name="concurrent" value="false"/>
+                        </bean>
+                    </property>
+                    <property name="cronExpression" value="0 0/1 * * * ?"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>
