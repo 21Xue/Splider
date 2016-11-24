@@ -54,7 +54,7 @@ public class WebDriverService {
 
     public static WebDriverFromHilton webDriver(String url) throws Exception {
         ChromeDriver driver = new ChromeDriver();
-        driver.get(url);
+        driver.get(url.trim());
         try {
             Thread.sleep(20000);
         } catch (InterruptedException e) {

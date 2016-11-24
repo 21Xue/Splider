@@ -12,7 +12,7 @@
                     <property name="jobDetail">
                         <bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
                             <property name="targetObject" ref="PushXML"/>
-                            <property name="targetMethod" value="testWhileTrue"/>
+                            <property name="targetMethod" value="readGoogleCSVFile"/>
                             <property name="concurrent" value="false"/>
                         </bean>
                     </property>

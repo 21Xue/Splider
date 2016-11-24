@@ -86,7 +86,7 @@ public class Fun {
     @Test
     public void heheh() {
         try {
-            ReadCVSService r = new ReadCVSService("E:\\Code\\Splider\\price_accuracy_validation_report_Hilton_2016-10-18_to_2016-10-18.csv");
+            ReadCVSService r = new ReadCVSService("E:\\Code\\Splider\\price_accuracy_validation_report_Hilton_2016-11-22_to_2016-11-22.csv");
             String s = CSVtoJSONUtil.CSVtoJSON(r.readLine());
             PriceAccuracyCVS data = JsonUtil.fromJson(s, PriceAccuracyCVS.class);
             CompareService cs = new CompareService();
