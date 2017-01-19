@@ -7,41 +7,41 @@ import java.util.List;
  */
 public class CompareResultDto {
 
-    public CompareResultDto(GoogleRateCheckDto d, GoogleRateCheckDto h, GoogleRateCheckDto a) {
+    public CompareResultDto(List<GoogleRateCheckDto> d, List<GoogleRateCheckDto> h, List<GoogleRateCheckDto> a) {
         this.dstorage = d;
         this.hte = h;
         this.adapter = a;
     }
 
 
-    public GoogleRateCheckDto getDstorageList() {
+    public List<GoogleRateCheckDto> getDstorageList() {
         return dstorage;
     }
 
-    public void setDstorageList(GoogleRateCheckDto dstorageList) {
+    public void setDstorageList(List<GoogleRateCheckDto> dstorageList) {
         this.dstorage = dstorageList;
     }
 
-    public GoogleRateCheckDto getHteList() {
+    public List<GoogleRateCheckDto> getHteList() {
         return hte;
     }
 
-    public void setHteList(GoogleRateCheckDto hteList) {
+    public void setHteList(List<GoogleRateCheckDto> hteList) {
         this.hte = hteList;
     }
 
-    public GoogleRateCheckDto getAdapterList() {
+    public List<GoogleRateCheckDto> getAdapterList() {
         return adapter;
     }
 
-    public void setAdapterList(GoogleRateCheckDto adapterList) {
+    public void setAdapterList(List<GoogleRateCheckDto> adapterList) {
         this.adapter = adapterList;
     }
 
-    GoogleRateCheckDto dstorage;
+    List<GoogleRateCheckDto> dstorage;
 
-    GoogleRateCheckDto hte;
+    List<GoogleRateCheckDto> hte;
 
-    GoogleRateCheckDto adapter;
+    List<GoogleRateCheckDto> adapter;
 
 }

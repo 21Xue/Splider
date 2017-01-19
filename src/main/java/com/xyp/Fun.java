@@ -2,6 +2,7 @@ package com.xyp;
 
 import com.xyp.WaringSystem.WaringType;
 import com.xyp.rateCompare.model.CompareResultDto;
+import com.xyp.rateCompare.model.GoogleRateCheckDto;
 import com.xyp.rateCompare.service.CompareService;
 import com.xyp.readCVS.core.ReadCVSService;
 import com.xyp.readCVS.model.PriceAccuracyCVS;
@@ -86,7 +87,7 @@ public class Fun {
     @Test
     public void heheh() {
         try {
-            ReadCVSService r = new ReadCVSService("E:\\Code\\Splider\\price_accuracy_validation_report_Hilton_2016-11-22_to_2016-11-22.csv");
+            ReadCVSService r = new ReadCVSService("E:\\Code\\Splider\\price_accuracy_validation_report_Hilton_2017-01-17_to_2017-01-17.csv");
             String s = CSVtoJSONUtil.CSVtoJSON(r.readLine());
             PriceAccuracyCVS data = JsonUtil.fromJson(s, PriceAccuracyCVS.class);
             CompareService cs = new CompareService();
@@ -106,64 +107,104 @@ public class Fun {
             for (FunDTO f : funList) {
                 try {
                     List<WaringType> waringTypeList = new ArrayList<WaringType>();
+
+
                     String hotelCode = f.getPriceAccuracyDTO().getHotel();
+                    if (Math.abs(Double.valueOf(f.getPriceAccuracyDTO().getFetched_price()) - Double.valueOf(f.getPriceAccuracyDTO().getCached_price())) < 1) {
+                        if (!f.getPriceAccuracyDTO().getFetched_tax().equals(f.getPriceAccuracyDTO().getCached_tax())) {
+                            waringTypeList.add(WaringType.TaxDifferent);
+                            errorMap.put(hotelCode, waringTypeList);
+                            continue;
+                        }
+                    }
+
+                    double fetchedPrice = Double.valueOf(f.getPriceAccuracyDTO().getFetched_price().replace(",", "").replace("*", ""));
+                    double webDriver = Double.valueOf(f.getWebDriverFromHilton().getPrice().replace(",", "").replace("*", ""));
+
+                    boolean fetchWeb = false;
+                    if (fetchedPrice != webDriver) {
+                        waringTypeList.add(WaringType.fetched_priceVSwebDriver);
+                    } else {
+                        fetchWeb = true;
+                    }
+
+                    if (webDriver == 0) {
+                        waringTypeList.add(WaringType.HotelDeletePrice);
+                    }
 
                     double cachePrice = Double.valueOf(f.getPriceAccuracyDTO().getCached_price().replace(",", "").replace("*", ""));
 
-                    double googleAdaper = f.getCompareResultDto().getAdapterList().getBaseRate().doubleValue();
+                    double googleAdaper = f.getCompareResultDto().getAdapterList().get(0).getBaseRate().doubleValue();
+                    double hte = f.getCompareResultDto().getHteList().get(0).getBaseRate().doubleValue();
+                    double dstorage = f.getCompareResultDto().getDstorageList().get(0).getBaseRate().doubleValue();
 
-                    double fetchedPrice = Double.valueOf(f.getPriceAccuracyDTO().getFetched_price().replace(",", "").replace("*", ""));
-
-                    double webDriver = Double.valueOf(f.getWebDriverFromHilton().getPrice().replace(",", "").replace("*", ""));
-
-                    double hte = f.getCompareResultDto().getHteList().getBaseRate().doubleValue();
-
-                    double dstorage = f.getCompareResultDto().getDstorageList().getBaseRate().doubleValue();
-
-                    if (fetchedPrice != webDriver) {
-                        waringTypeList.add(WaringType.fetched_priceVSwebDriver);
-                    }
-
-                    if (cachePrice != googleAdaper) {
-                        waringTypeList.add(WaringType.cached_priceVSgoogle_adaper);
-                    }
-
-
-                    if (hte == dstorage && hte == googleAdaper && googleAdaper == dstorage) {
-                        waringTypeList.add(WaringType.Operation_is_Same);
+                    if (Math.abs(hte - dstorage) < 1 && Math.abs(hte - googleAdaper) < 1 && Math.abs(googleAdaper - dstorage) < 1) {
                         if (hte != fetchedPrice) {
-                            waringTypeList.add(WaringType.fetched_priceVSOperation_Same);
+                            boolean hteFindFetch = false;
+                            for (GoogleRateCheckDto hteDto : f.getCompareResultDto().getHteList()) {
+                                if (hteDto.getBaseRate().doubleValue() == fetchedPrice) {
+                                    hteFindFetch = true;
+                                }
+                            }
+                            boolean dstorageFindFetch = false;
+                            for (GoogleRateCheckDto dsDto : f.getCompareResultDto().getDstorageList()) {
+                                if (dsDto.getBaseRate().doubleValue() == fetchedPrice) {
+                                    dstorageFindFetch = true;
+                                }
+                            }
+
+                            if (hteFindFetch && !dstorageFindFetch) {
+                                waringTypeList.add(WaringType.CacheLackPrice);
+                            }
+
+                            if ((hte - fetchedPrice) > 1 && (webDriver == fetchedPrice)) {
+                                waringTypeList.add(WaringType.hteDiffWithWeb);
+                            }
+
+
+                        } else {
+                            waringTypeList.add(WaringType.AlreadyRight);
                         }
-                        if (hte != webDriver) {
-                            waringTypeList.add(WaringType.webDriverVSOperation_Same);
+
+                    }
+
+                    boolean isHteHaveWebPrice = false;
+                    for (GoogleRateCheckDto hteDto : f.getCompareResultDto().getHteList()) {
+                        if (hteDto.getBaseRate().doubleValue() == fetchedPrice) {
+                            isHteHaveWebPrice = true;
                         }
                     }
 
-
-                    if (googleAdaper != hte) {
-                        waringTypeList.add(WaringType.google_adaperVShte);
-                        if (hte == webDriver || hte == fetchedPrice) {
-                            waringTypeList.add(WaringType.hteSameWithWebDriverOrFetchPrice);
+                    boolean isdstorageHaveWebPrice = false;
+                    for (GoogleRateCheckDto dsDto : f.getCompareResultDto().getDstorageList()) {
+                        if (dsDto.getBaseRate().doubleValue() == fetchedPrice) {
+                            isdstorageHaveWebPrice = true;
                         }
                     }
-                    if (googleAdaper != dstorage) {
-                        waringTypeList.add(WaringType.google_adaperVSdstorage);
-                    }
-                    if (dstorage != hte) {
-                        waringTypeList.add(WaringType.dstorageVShte);
+
+                    if (Math.abs(hte - dstorage) < 1 && Math.abs(hte - googleAdaper) > 1) {
+                        waringTypeList.add(WaringType.GetPriceDelay);
                     }
 
+                    if (isHteHaveWebPrice && !isdstorageHaveWebPrice) {
+                        waringTypeList.add(WaringType.CacheNoPrice);
+                    }
+
+                    if (!isHteHaveWebPrice && !isdstorageHaveWebPrice) {
+                        waringTypeList.add(WaringType.hteDiffWithWeb);
+                    }
+
+                    if (isHteHaveWebPrice && isdstorageHaveWebPrice) {
+                        waringTypeList.add(WaringType.HotelChangePrice);
+                    }
 
                     errorMap.put(hotelCode, waringTypeList);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println(JsonUtil.toJson(f));
                 }
-            }
 
-//            for (List<WaringType> waringTypeList : errorMap.values()) {
-//                if(waringTypeList)
-//            }
+            }
             System.out.println(JsonUtil.toJson(errorMap));
         } catch (Exception e) {
             e.printStackTrace();

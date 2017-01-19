@@ -5,29 +5,24 @@ package com.xyp.WaringSystem;
  */
 public enum WaringType {
 
-    cached_priceVSgoogle_adaper("Cache price diff with Google adaper"),
-
-    cached_taxVSgoogle_adaper("Cache tax diff with google adaper"),
-
     fetched_priceVSwebDriver("Fetched price diff with WebDriver"),
 
-    fetched_taxVSwebDriver("Fetched tax diff with webDriver"),
+    CacheLackPrice("CacheLackPrice"),
 
-    Operation_is_Same("Operation is same"),
+    TaxDifferent("TaxDifferent"),
 
-    google_adaperVShte("google adaper diff with hte"),
+    HotelDeletePrice("HotelDeletePrice"),
 
-    google_adaperVSdstorage("google adaper diff with dstorage"),
+    HotelChangePrice("HotelChangePrice"),
 
-    dstorageVShte("dstorage diff with hte"),
+    hteDiffWithWeb("hteDiffWithWeb"),
 
-    fetched_priceVSOperation_Same("fetch price diff with Operation"),
+    CacheNoPrice("CacheNoPrice"),
 
-    webDriverVSOperation_Same("WebDriver diff with Operation"),
+    GetPriceDelay("GetPriceDelay"),
 
-    hteSameWithWebDriverOrFetchPrice("hteSameWithWebDriverOrFetchPrice");
+    AlreadyRight("AlreadyRight");
 
-    //    hte == webDriver || hte == fetchedPrice
     private String errorMessage;
 
     private Integer value;

@@ -132,22 +132,26 @@ public class WebDriverService {
 
         List<WebElement> truePriceList = truePrice.findElements(By.tagName("tr"));
 
-        int size = truePriceList.size();
-        if (size > 3) {
-            price = truePriceList.get(size - 3).findElement(By.className("price")).getText();
-            tax = truePriceList.get(size - 2).findElement(By.className("price")).getText();
-            total = truePriceList.get(size - 1).findElement(By.className("price")).getText();
-        } else {
-            price = truePriceList.get(size - 2).findElement(By.className("price")).getText();
-            total = truePriceList.get(size - 1).findElement(By.className("price")).getText();
+        for (WebElement tempWeb : truePriceList) {
+            List<WebElement> tdWebElement = tempWeb.findElements(By.tagName("td"));
+            for (WebElement tdWE : tdWebElement) {
+                if ("Room Subtotal".equals(tdWE.getText())) {
+                    price = tempWeb.findElement(By.className("price")).getText().replace(",", "").replace("*", "");
+                }
+                if ("Total for stay".equals(tdWE.getText())) {
+                    total = tempWeb.findElement(By.className("price")).getText().replace(",", "").replace("*", "");
+                }
+            }
         }
-//        if (truePrice.findElements(By.className("price")).size() > 3) {
-//            price = truePrice.findElements(By.className("price")).get(1).getText();
-//            tax = truePrice.findElements(By.className("price")).get(2).getText();
-//            total = truePrice.findElements(By.className("price")).get(3).getText();
+        tax = String.valueOf(Double.valueOf(total) - Double.valueOf(price));
+//        int size = truePriceList.size();
+//        if (size > 3) {
+//            price = truePriceList.get(size - 3).findElement(By.className("price")).getText();
+//            tax = truePriceList.get(size - 2).findElement(By.className("price")).getText();
+//            total = truePriceList.get(size - 1).findElement(By.className("price")).getText();
 //        } else {
-//            price = truePrice.findElements(By.className("price")).get(1).getText();
-//            total = truePrice.findElements(By.className("price")).get(2).getText();
+//            price = truePriceList.get(size - 2).findElement(By.className("price")).getText();
+//            total = truePriceList.get(size - 1).findElement(By.className("price")).getText();
 //        }
 
         for (String win : driver.getWindowHandles()) {
