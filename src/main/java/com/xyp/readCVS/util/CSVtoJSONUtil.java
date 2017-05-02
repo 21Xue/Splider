@@ -6,7 +6,7 @@ package com.xyp.readCVS.util;
 public class CSVtoJSONUtil {
 
     //,(?=([^"]*"[^"])*[^"]*$) 切割的正则
-    private static final String CSV_REGEX = ",(?=([^\"]*\"[^\"])*[^\"]*$)";
+    private static final String CSV_REGEX = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
     public static String CSVtoJSON(String output) {
 

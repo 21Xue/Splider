@@ -18,17 +18,118 @@ public class PriceAccuracyCVS {
     List<PriceAccuracyDTO> result;
 
     public class PriceAccuracyDTO {
-        private String partner;
-        private String hotel;
-        private String check_in_date;
-        private String length_of_stay;
-        private String fetched_price;
-        private String fetched_tax;
-        private String fetched_currency;
-        private String fetched_time;
-        private String cached_price;
-        private String cached_tax;
-        private String cached_currency;
+
+        private String hotel_id;
+
+        private String check_in;
+
+        private String nights;
+
+        private String scraped_price;
+
+        private String scraped_tax;
+
+        private String scraped_currency;
+
+        private String scraped_total_price;
+
+        private String feed_price;
+
+        private String feed_tax;
+
+        private String feed_currency;
+
+        private String total_price;
+
+        private String url;
+
+        public String getHotel_id() {
+            return hotel_id;
+        }
+
+        public void setHotel_id(String hotel_id) {
+            this.hotel_id = hotel_id;
+        }
+
+        public String getCheck_in() {
+            return check_in;
+        }
+
+        public void setCheck_in(String check_in) {
+            this.check_in = check_in;
+        }
+
+        public String getNights() {
+            return nights;
+        }
+
+        public void setNights(String nights) {
+            this.nights = nights;
+        }
+
+        public String getScraped_price() {
+            return scraped_price;
+        }
+
+        public void setScraped_price(String scraped_price) {
+            this.scraped_price = scraped_price;
+        }
+
+        public String getScraped_tax() {
+            return scraped_tax;
+        }
+
+        public void setScraped_tax(String scraped_tax) {
+            this.scraped_tax = scraped_tax;
+        }
+
+        public String getScraped_currency() {
+            return scraped_currency;
+        }
+
+        public void setScraped_currency(String scraped_currency) {
+            this.scraped_currency = scraped_currency;
+        }
+
+        public String getScraped_total_price() {
+            return scraped_total_price;
+        }
+
+        public void setScraped_total_price(String scraped_total_price) {
+            this.scraped_total_price = scraped_total_price;
+        }
+
+        public String getFeed_price() {
+            return feed_price;
+        }
+
+        public void setFeed_price(String feed_price) {
+            this.feed_price = feed_price;
+        }
+
+        public String getFeed_tax() {
+            return feed_tax;
+        }
+
+        public void setFeed_tax(String feed_tax) {
+            this.feed_tax = feed_tax;
+        }
+
+        public String getFeed_currency() {
+            return feed_currency;
+        }
+
+        public void setFeed_currency(String feed_currency) {
+            this.feed_currency = feed_currency;
+        }
+
+        public String getTotal_price() {
+            return total_price;
+        }
+
+        public void setTotal_price(String total_price) {
+            this.total_price = total_price;
+        }
 
         public String getUrl() {
             return url;
@@ -37,105 +138,6 @@ public class PriceAccuracyCVS {
         public void setUrl(String url) {
             this.url = url;
         }
-
-        public String getPartner() {
-            return partner;
-        }
-
-        public void setPartner(String partner) {
-            this.partner = partner;
-        }
-
-        public String getHotel() {
-            return hotel;
-        }
-
-        public void setHotel(String hotel) {
-            this.hotel = hotel;
-        }
-
-        public String getCheck_in_date() {
-            return check_in_date;
-        }
-
-        public void setCheck_in_date(String check_in_date) {
-            this.check_in_date = check_in_date;
-        }
-
-        public String getLength_of_stay() {
-            return length_of_stay;
-        }
-
-        public void setLength_of_stay(String length_of_stay) {
-            this.length_of_stay = length_of_stay;
-        }
-
-        public String getFetched_price() {
-            return fetched_price;
-        }
-
-        public void setFetched_price(String fetched_price) {
-            this.fetched_price = fetched_price;
-        }
-
-        public String getFetched_tax() {
-            return fetched_tax;
-        }
-
-        public void setFetched_tax(String fetched_tax) {
-            this.fetched_tax = fetched_tax;
-        }
-
-        public String getFetched_currency() {
-            return fetched_currency;
-        }
-
-        public void setFetched_currency(String fetched_currency) {
-            this.fetched_currency = fetched_currency;
-        }
-
-        public String getFetched_time() {
-            return fetched_time;
-        }
-
-        public void setFetched_time(String fetched_time) {
-            this.fetched_time = fetched_time;
-        }
-
-        public String getCached_price() {
-            return cached_price;
-        }
-
-        public void setCached_price(String cached_price) {
-            this.cached_price = cached_price;
-        }
-
-        public String getCached_tax() {
-            return cached_tax;
-        }
-
-        public void setCached_tax(String cached_tax) {
-            this.cached_tax = cached_tax;
-        }
-
-        public String getCached_currency() {
-            return cached_currency;
-        }
-
-        public void setCached_currency(String cached_currency) {
-            this.cached_currency = cached_currency;
-        }
-
-        public String getCached_time() {
-            return cached_time;
-        }
-
-        public void setCached_time(String cached_time) {
-            this.cached_time = cached_time;
-        }
-
-        private String cached_time;
-        private String url;
     }
 
 }

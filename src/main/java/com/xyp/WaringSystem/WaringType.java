@@ -5,7 +5,18 @@ package com.xyp.WaringSystem;
  */
 public enum WaringType {
 
+    TimeaPast("TimeaPast"),
+
+
+    Google_error("Google_error"),
+
     fetched_priceVSwebDriver("Fetched price diff with WebDriver"),
+
+    hteNoPrice("hteNoPrice"),
+
+    DstorgeNoPrice("DstorgeNoPrice"),
+
+    GoogleAdapterNoPrice("GoogleAdapterNoPrice"),
 
     CacheLackPrice("CacheLackPrice"),
 

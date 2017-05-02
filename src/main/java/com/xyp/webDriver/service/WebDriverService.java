@@ -3,13 +3,14 @@ package com.xyp.webDriver.service;
 import com.xyp.Fun;
 import com.xyp.webDriver.model.MinPriceElement;
 import com.xyp.webDriver.model.WebDriverFromHilton;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +21,7 @@ public class WebDriverService {
 
     private static Pattern p = Pattern.compile("[^.0-9\\s]");
 
-    private static final String toolURL = "E:\\Code\\chromedriver.exe";
+    private static final String toolURL = "E:\\Code\\Splider\\chromedriver.exe";
 
     static {
         System.setProperty("webdriver.chrome.driver", toolURL);
@@ -38,7 +39,6 @@ public class WebDriverService {
                 for (String tempPrice : priceGroup) {
                     if (!StringUtils.isEmpty(tempPrice)) {
                         if (Double.valueOf(tempPrice) < tempMinGroup) {
-//                            System.out.print("This is group min");
                             tempMinGroup = Double.valueOf(tempPrice);
                         }
                     }
@@ -54,22 +54,25 @@ public class WebDriverService {
 
     public static WebDriverFromHilton webDriver(String url) throws Exception {
         ChromeDriver driver = new ChromeDriver();
-        driver.get(url.trim());
+        driver.navigate().to(url.trim());
+//        driver.navigate().to;
+        driver.manage().timeouts().pageLoadTimeout(3, TimeUnit.HOURS);
         try {
-            Thread.sleep(20000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<WebElement> elements = driver.findElements(By.tagName("tr"));
-//        List<WebElement> needElement = new ArrayList<WebElement>();
+        List<WebElement> elements = driver.findElements(By.className("rate"));
         List<WebElement> calculationList = new ArrayList<WebElement>();
 
         for (WebElement element : elements) {
             try {
-                String tempString = element.findElement(By.tagName("a")).getText();
-                if (!StringUtils.isEmpty(tempString)) {
-                    if (!tempString.contains("HHONORS")) {
-                        calculationList.add(element);
+                if (element.findElement(By.tagName("a")) != null) {
+                    String tempString = element.findElement(By.tagName("a")).getText();
+                    if (!StringUtils.isEmpty(tempString)) {
+                        if (!tempString.contains("HONORS")) {
+                            calculationList.add(element);
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -87,7 +90,7 @@ public class WebDriverService {
                 close.close();
             }
             driver.quit();
-            return new WebDriverFromHilton("0", "0", "0");
+            return new WebDriverFromHilton("0", "0", "0", "0");
         }
 
         MinPriceElement min = Collections.min(priceMap, new Comparator<MinPriceElement>() {
@@ -105,7 +108,7 @@ public class WebDriverService {
         mine.findElement(By.tagName("a")).click();
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -159,6 +162,6 @@ public class WebDriverService {
             close.close();
         }
         driver.quit();
-        return new WebDriverFromHilton(price, tax, total);
+        return new WebDriverFromHilton(price, tax, total, "0");
     }
 }

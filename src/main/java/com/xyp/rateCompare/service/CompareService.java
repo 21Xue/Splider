@@ -36,10 +36,10 @@ public class CompareService {
     private CompareDataDTO translateToCompareDataDto(PriceAccuracyCVS.PriceAccuracyDTO pricedto) {
         CompareDataDTO compareDataDTO = new CompareDataDTO();
 
-        compareDataDTO.setHotelCode(pricedto.getHotel());
-        compareDataDTO.setCheckIn(pricedto.getCheck_in_date());
+        compareDataDTO.setHotelCode(pricedto.getHotel_id());
+        compareDataDTO.setCheckIn(pricedto.getCheck_in());
         try {
-            compareDataDTO.setCheckOut(getCheckData(pricedto.getCheck_in_date(), pricedto.getLength_of_stay()));
+            compareDataDTO.setCheckOut(getCheckData(pricedto.getCheck_in(), pricedto.getNights()));
         } catch (Exception e) {
             e.printStackTrace();
         }

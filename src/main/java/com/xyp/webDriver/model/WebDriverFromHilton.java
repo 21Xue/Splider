@@ -5,10 +5,11 @@ package com.xyp.webDriver.model;
  */
 public class WebDriverFromHilton {
 
-    public WebDriverFromHilton(String p, String ta, String to) {
+    public WebDriverFromHilton(String p, String ta, String to, String charge) {
         this.price = p;
         this.tax = ta;
         this.total = to;
+        this.charge = charge;
     }
 
     private String price;
@@ -40,4 +41,6 @@ public class WebDriverFromHilton {
     }
 
     private String total;
+
+    private String charge;
 }

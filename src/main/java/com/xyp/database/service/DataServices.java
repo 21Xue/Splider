@@ -41,50 +41,50 @@ public class DataServices {
     }
 
     public void readGoogleCSVFile() {
-        File file = new File(PropertiesUtil.getNewPath());
-        File[] tempList = file.listFiles();
-        String sql = "";
-        for (File temp : tempList) {
-            PriceAccuracyCVS data = null;
-            try {
-                ReadCVSService r = new ReadCVSService(temp);
-                String s = CSVtoJSONUtil.CSVtoJSON(r.readLine());
-                data = JsonUtil.fromJson(s, PriceAccuracyCVS.class);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            for (PriceAccuracyCVS.PriceAccuracyDTO priceAccuracyDTO : data.getResult()) {
-                try {
-                    sql = new StringBuffer("insert into google_file (partner, hotel, checkin,  los, fetchprice, fetchtax, fetchcurrency,fetchtime,cacheprice,cachetax,cachecurrency,cachetime,url,filename)")
-                            .append(" values('").append(priceAccuracyDTO.getPartner()).append("',")
-                            .append("'").append(priceAccuracyDTO.getHotel()).append("',")
-                            .append("'").append(DateTimeUtils.formatDate(DateTimeUtils.parse(priceAccuracyDTO.getCheck_in_date()))).append("',")
-                            .append("'").append(priceAccuracyDTO.getLength_of_stay()).append("',")
-                            .append("'").append(priceAccuracyDTO.getFetched_price()).append("',")
-                            .append("'").append(priceAccuracyDTO.getFetched_tax()).append("',")
-                            .append("'").append(priceAccuracyDTO.getFetched_currency()).append("',")
-                            .append("'").append(DateTimeUtils.formatDateTime(DateTimeUtils.parse(priceAccuracyDTO.getFetched_time(), DateTimeUtils.FULL_DATE_TIME_FORMAT2), DateTimeUtils.FULL_DATE_TIME_FORMAT)).append("',")
-                            .append("'").append(priceAccuracyDTO.getCached_price()).append("',")
-                            .append("'").append(priceAccuracyDTO.getCached_tax()).append("',")
-                            .append("'").append(priceAccuracyDTO.getCached_currency()).append("',")
-                            .append("'").append(DateTimeUtils.formatDateTime(DateTimeUtils.parse(priceAccuracyDTO.getCached_time(), DateTimeUtils.FULL_DATE_TIME_FORMAT2), DateTimeUtils.FULL_DATE_TIME_FORMAT)).append("',")
-                            .append("'").append(priceAccuracyDTO.getUrl()).append("',")
-                            .append("'").append(temp.getName()).append("'")
-                            .append(" ) ")
-                            .toString();
-                    jt.execute(sql.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            moveFile(temp);
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            temp.delete();
-        }
+//        File file = new File(PropertiesUtil.getNewPath());
+//        File[] tempList = file.listFiles();
+//        String sql = "";
+//        for (File temp : tempList) {
+//            PriceAccuracyCVS data = null;
+//            try {
+//                ReadCVSService r = new ReadCVSService(temp);
+//                String s = CSVtoJSONUtil.CSVtoJSON(r.readLine());
+//                data = JsonUtil.fromJson(s, PriceAccuracyCVS.class);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            for (PriceAccuracyCVS.PriceAccuracyDTO priceAccuracyDTO : data.getResult()) {
+//                try {
+//                    sql = new StringBuffer("insert into google_file (partner, hotel, checkin,  los, fetchprice, fetchtax, fetchcurrency,fetchtime,cacheprice,cachetax,cachecurrency,cachetime,url,filename)")
+//                            .append(" values('").append(priceAccuracyDTO.getPartner()).append("',")
+//                            .append("'").append(priceAccuracyDTO.getHotel()).append("',")
+//                            .append("'").append(DateTimeUtils.formatDate(DateTimeUtils.parse(priceAccuracyDTO.getCheck_in_date()))).append("',")
+//                            .append("'").append(priceAccuracyDTO.getLength_of_stay()).append("',")
+//                            .append("'").append(priceAccuracyDTO.getFetched_price()).append("',")
+//                            .append("'").append(priceAccuracyDTO.getFetched_tax()).append("',")
+//                            .append("'").append(priceAccuracyDTO.getFetched_currency()).append("',")
+//                            .append("'").append(DateTimeUtils.formatDateTime(DateTimeUtils.parse(priceAccuracyDTO.getFetched_time(), DateTimeUtils.FULL_DATE_TIME_FORMAT2), DateTimeUtils.FULL_DATE_TIME_FORMAT)).append("',")
+//                            .append("'").append(priceAccuracyDTO.getCached_price()).append("',")
+//                            .append("'").append(priceAccuracyDTO.getCached_tax()).append("',")
+//                            .append("'").append(priceAccuracyDTO.getCached_currency()).append("',")
+//                            .append("'").append(DateTimeUtils.formatDateTime(DateTimeUtils.parse(priceAccuracyDTO.getCached_time(), DateTimeUtils.FULL_DATE_TIME_FORMAT2), DateTimeUtils.FULL_DATE_TIME_FORMAT)).append("',")
+//                            .append("'").append(priceAccuracyDTO.getUrl()).append("',")
+//                            .append("'").append(temp.getName()).append("'")
+//                            .append(" ) ")
+//                            .toString();
+//                    jt.execute(sql.toString());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            moveFile(temp);
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            temp.delete();
+//        }
     }
 
     public void moveFile(File newFile) {

@@ -2,7 +2,7 @@ package com.xyp.rateCompare.util;
 
 import com.derbysoft.dplatform.google.protocol.dto.AvailRQCondition;
 import com.xyp.rateCompare.model.CompareDataDTO;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 
