@@ -27,7 +27,7 @@ import java.util.*;
 
 public class CompareService {
 
-    GoogleCheckServiceImpl googleRateCheckService = new GoogleCheckServiceImpl();
+//    GoogleCheckServiceImpl googleRateCheckService = new GoogleCheckServiceImpl();
 
     private final String DISABLED_HTE_RATE_ACCOUNT = "TRUST,HELLOWORLD";
 
@@ -59,50 +59,50 @@ public class CompareService {
     }
 
     public CompareResultDto getDStorageRate(PriceAccuracyCVS.PriceAccuracyDTO dto) throws Exception {
-        String accountCode = "HILTON";
-        AvailRQCondition availRQCondition = AvailRQConditionUtil.getAvailRQConditionByAccount(translateToCompareDataDto(dto), accountCode);
-        if (availRQCondition == null) {
-            return null;
-        }
-        Map<String, Object> result = new HashMap<String, Object>();
-        GoogleHiltonCheckService googleHiltonCheckService = googleRateCheckService.getGoogleCheckServiceByAccount(accountCode);
-        Transaction.Result dstorageRate = googleHiltonCheckService.getDStorageRate(availRQCondition);
-        Transaction.Result hteRate = null;
-        List<GoogleRateCheckDto> hteList = null;
-        if (DISABLED_HTE_RATE_ACCOUNT.indexOf(accountCode) == -1) {
-            hteRate = googleHiltonCheckService.getHteRate(availRQCondition);
-            result.put("hteJSON", JsonUtil.toJson(hteRate));
-            hteList = GoogleRateCheckUtil.getRoomRateFromGoogleApi(hteRate);
-        } else {
-            THotelRateListing tHotelRateListing = GoogleRateCheckUtil.getSearchFeedHTERate(availRQCondition);
-            result.put("hteJSON", JsonUtil.toJson(tHotelRateListing));
-            hteList = GoogleRateCheckUtil.getRoomRateFromSearchFeed(tHotelRateListing);
-        }
-        Transaction.Result adapterRate = googleHiltonCheckService.getGoogleAdapterRate(availRQCondition);
-        List<GoogleRateCheckDto> dstorageList = GoogleRateCheckUtil.getRoomRateFromGoogleApi(dstorageRate);
+//        String accountCode = "HILTON";
+//        AvailRQCondition availRQCondition = AvailRQConditionUtil.getAvailRQConditionByAccount(translateToCompareDataDto(dto), accountCode);
+//        if (availRQCondition == null) {
+//            return null;
+//        }
+//        Map<String, Object> result = new HashMap<String, Object>();
+////        GoogleHiltonCheckService googleHiltonCheckService = googleRateCheckService.getGoogleCheckServiceByAccount(accountCode);
+//        Transaction.Result dstorageRate = googleHiltonCheckService.getDStorageRate(availRQCondition);
+//        Transaction.Result hteRate = null;
+//        List<GoogleRateCheckDto> hteList = null;
+//        if (DISABLED_HTE_RATE_ACCOUNT.indexOf(accountCode) == -1) {
+//            hteRate = googleHiltonCheckService.getHteRate(availRQCondition);
+//            result.put("hteJSON", JsonUtil.toJson(hteRate));
+//            hteList = GoogleRateCheckUtil.getRoomRateFromGoogleApi(hteRate);
+//        } else {
+//            THotelRateListing tHotelRateListing = GoogleRateCheckUtil.getSearchFeedHTERate(availRQCondition);
+//            result.put("hteJSON", JsonUtil.toJson(tHotelRateListing));
+//            hteList = GoogleRateCheckUtil.getRoomRateFromSearchFeed(tHotelRateListing);
+//        }
+//        Transaction.Result adapterRate = googleHiltonCheckService.getGoogleAdapterRate(availRQCondition);
+//        List<GoogleRateCheckDto> dstorageList = GoogleRateCheckUtil.getRoomRateFromGoogleApi(dstorageRate);
+//
+//        Comparator<GoogleRateCheckDto> comparator = new Comparator<GoogleRateCheckDto>() {
+//            @Override
+//            public int compare(GoogleRateCheckDto o1, GoogleRateCheckDto o2) {
+//                double b1 = o1.getBaseRate().doubleValue();
+//                double b2 = o2.getBaseRate().doubleValue();
+//                if (b1 < b2) {
+//                    return -1;
+//                }
+//                return 1;
+//            }
+//        };
+//
+//        Collections.sort(dstorageList, comparator);
+//
+//        Collections.sort(hteList, comparator);
+//
+//        List<GoogleRateCheckDto> adapterList = GoogleRateCheckUtil.getAdapterFromGoogleApi(adapterRate);
+//
+//        Collections.sort(adapterList, comparator);
+//
+//        CompareResultDto compareResultDto = new CompareResultDto(dstorageList, hteList, adapterList);
 
-        Comparator<GoogleRateCheckDto> comparator = new Comparator<GoogleRateCheckDto>() {
-            @Override
-            public int compare(GoogleRateCheckDto o1, GoogleRateCheckDto o2) {
-                double b1 = o1.getBaseRate().doubleValue();
-                double b2 = o2.getBaseRate().doubleValue();
-                if (b1 < b2) {
-                    return -1;
-                }
-                return 1;
-            }
-        };
-
-        Collections.sort(dstorageList, comparator);
-
-        Collections.sort(hteList, comparator);
-
-        List<GoogleRateCheckDto> adapterList = GoogleRateCheckUtil.getAdapterFromGoogleApi(adapterRate);
-
-        Collections.sort(adapterList, comparator);
-
-        CompareResultDto compareResultDto = new CompareResultDto(dstorageList, hteList, adapterList);
-
-        return compareResultDto;
+        return null;
     }
 }
