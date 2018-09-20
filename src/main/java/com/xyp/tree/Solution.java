@@ -14,45 +14,24 @@ public class Solution {
             return true;
         }
 
-        TreeNode leftTree = root.left;
+        int leftTreeLevel = getTreeLevel(root.left);
+        int rightTreeLevel = getTreeLevel(root.right);
 
-        TreeNode rightTree = root.right;
-
-        int leftTreeLevel = getTreeLevel(leftTree);
-
-        int rightTreeLevel = getTreeLevel(rightTree);
-
-        int cha = 0;
-        if (leftTreeLevel < rightTreeLevel) {
-
-            cha = rightTreeLevel - leftTreeLevel;
-
-        } else {
-
-            cha = leftTreeLevel - rightTreeLevel;
+        int diff = leftTreeLevel - rightTreeLevel;
+        if (diff > 1 || diff < -1) {
+            return false;
         }
 
-        return cha <= 1;
+        return isBalanced(root.left) && isBalanced(root.right);
     }
 
-    public static int  getTreeLevel(TreeNode node) {
-
+    public static int getTreeLevel(TreeNode node) {
         int klevel = 0;
-
         if (node != null) {
-            int thislevel = 0;
+            int thislevel = 1;
             int nextlevel = 0;
-
-            if (node.left != null || node.right != null) {
-                thislevel = 1;
-            }
-
-
             int nextleft = getTreeLevel(node.left);
-
             int nextright = getTreeLevel(node.right);
-
-
             if (nextleft > nextright) {
                 nextlevel = nextleft;
             } else {
@@ -105,7 +84,7 @@ public class Solution {
 
     public static void main(String[] args) {
 
-        Integer[] numbers = {1,null,2,null,3};
+        Integer[] numbers = {1, null, 2, null, null, null, 3};
 
         TreeNode root = null;
 
@@ -139,7 +118,7 @@ public class Solution {
         root = nodeList.get(0);
         int k = getTreeLevel(root);
 
-        boolean flag=isBalanced(root);
+        boolean flag = isBalanced(root);
         System.out.printf("asd");
 
     }
