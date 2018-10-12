@@ -1,33 +1,29 @@
 package com.xyp.twosum;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by xyp on 18/10/11.
  */
 public class Solution {
 
     public int[] twoSum(int[] nums, int target) {
-        int[] test = {};
-        if (nums.length == 0) {
-            return test;
+        Map<Integer, Integer> numberMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            numberMap.put(nums[i], i);
         }
 
 
-        int middle = nums.length / 2;
-
-        int left = 0;
-
-        int right = nums.length - 1;
-
-        while (middle == left || middle == right) {
-            if (nums[middle] < target) {
-                left = middle;
-            } else {
-                right = middle;
+        for (int i = 0; i < nums.length; i++) {
+            if (numberMap.get((target - nums[i])) != null && i != numberMap.get(target - nums[i])) {
+                return new int[]{i, numberMap.get((target - nums[i]))};
             }
-            middle = (right - left) / 2;
         }
 
 
+        return nums;
     }
 
 }
