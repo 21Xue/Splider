@@ -11,19 +11,19 @@ public class Solution {
 //        [2,4,3]
 //[5,6,4]
 
-        ListNode l11 = new ListNode(2);
-        ListNode l12 = new ListNode(4);
-        ListNode l13 = new ListNode(3);
+        ListNode l11 = new ListNode(1);
+//        ListNode l12 = new ListNode(8);
+//        ListNode l13 = new ListNode(3);
 
-        ListNode l21 = new ListNode(5);
-        ListNode l22 = new ListNode(6);
-        ListNode l23 = new ListNode(4);
+        ListNode l21 = new ListNode(9);
+        ListNode l22 = new ListNode(9);
+//        ListNode l23 = new ListNode(4);
 
-        l11.next = l12;
-        l12.next = l13;
+//        l11.next = l12;
+//        l12.next = l13;
 
         l21.next = l22;
-        l22.next = l23;
+//        l22.next = l23;
 
         ListNode result = addTwoNumbers(l11, l21);
 
@@ -35,36 +35,47 @@ public class Solution {
         ListNode result = null;
 
         ListNode l1now = l1;
-
+        
         ListNode l2now = l2;
 
         ListNode resultnow = new ListNode(0);
 
+        while (l1now != null || l2now != null) {
 
-        while (l1now != null && l2now != null) {
+            int n1 = 0;
+            int n2 = 0;
 
-            int nowplus = l1now.val + l2now.val;
-
-            if (resultnow == null) {
-                resultnow = new ListNode(0);
+            if (l1now != null) {
+                n1 = l1now.val;
             }
+            if (l2now != null) {
+                n2 = l2now.val;
+            }
+
+            if ((l1now != null && l1now.next != null) || (l2now != null && l2now.next != null)) {
+                resultnow.next = new ListNode(0);
+            }
+
+            int nowplus = n1 + n2 + resultnow.val;
 
             if (nowplus > 9) {
                 nowplus = nowplus - 10;
                 resultnow.next = new ListNode(1);
             }
-            resultnow.val = resultnow.val + nowplus;
-
+            resultnow.val = nowplus;
 
             if (result == null) {
                 result = resultnow;
             }
 
-            l1now = l1now.next;
-            l2now = l2now.next;
+            if (l1now != null) {
+                l1now = l1now.next;
+            }
+            if (l2now != null) {
+                l2now = l2now.next;
+            }
             resultnow = resultnow.next;
         }
-
 
         return result;
     }
