@@ -14,8 +14,38 @@ import java.util.Map;
 public class Solution {
 
     public static void main(String[] args) {
-        String s = "ccc";
-        System.out.print(longestPalindrome(s));
+        String s = "";
+
+        long time1 = System.currentTimeMillis();
+
+        System.out.println(longestPalindrome(s));
+
+        System.out.println(System.currentTimeMillis() - time1);
+    }
+
+
+    public static String longestPalindrome1(String s) {
+        if (s == null || s.length() < 1) return "";
+        int start = 0, end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expandAroundCenter(s, i, i);
+            int len2 = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    private static int expandAroundCenter(String s, int left, int right) {
+        int L = left, R = right;
+        while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+            L--;
+            R++;
+        }
+        return R - L - 1;
     }
 
     public static String longestPalindrome(String s) {
@@ -39,36 +69,27 @@ public class Solution {
         String temp = "";
         for (Character c : charMap.keySet()) {
             List<Integer> tempList = charMap.get(c);
-            for (int i = 0; i < tempList.size(); i++) {
+            for (int i = tempList.size(); i > 0; i--) {
 
-                for (int j = i; j < tempList.size(); j++) {
+                if (tempList.get(i - 1) > temp.length()) {
 
-                    if (!(j - 1 < 0)) {
-                        int length = tempList.get(j) - tempList.get(j - 1) + 1;
+                    for (int j = 0; j < i; j++) {
+
+                        int length = tempList.get(i - 1) - tempList.get(j) + 1;
+
                         StringBuilder sb = new StringBuilder();
-                        if (length % 2 == 0) {
-                            String subStringLeft = s.substring(tempList.get(j - 1), tempList.get(j - 1) + length / 2);
-                            sb.append(subStringLeft);
-                            sb.append(new StringBuffer(subStringLeft).reverse());
-                        } else {
-                            String subStringLeft = s.substring(tempList.get(j - 1), tempList.get(j - 1) + length / 2);
-                            sb.append(subStringLeft);
-                            sb.append(s.charAt(tempList.get(j - 1) + 1));
-                            sb.append(new StringBuffer(subStringLeft).reverse());
+                        String subStringLeft = s.substring(tempList.get(j), tempList.get(j) + length / 2);
+                        sb.append(subStringLeft);
+                        if (length % 2 != 0) {
+                            sb.append(s.charAt(tempList.get(j) + length / 2));
                         }
+                        sb.append(new StringBuffer(subStringLeft).reverse());
                         if (s.contains(sb.toString()) && sb.toString().length() > temp.length()) {
                             temp = sb.toString();
                         }
-                    } else {
-                        if (temp.length() == 0) {
-                            temp = String.valueOf(s.charAt(tempList.get(j)));
-                        }
                     }
 
-                    
                 }
-
-
             }
         }
         return temp;
