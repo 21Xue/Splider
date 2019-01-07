@@ -9,34 +9,36 @@ public class Solution {
 
     public static int reverse(int x) {
         boolean isnegative = false;
-
         if (x < 0) {
             isnegative = true;
             x = 0 - x;
         }
 
-        Map<Integer, Integer> numberMap = new HashMap<>();
-        int divide = 10;
-        while (x % divide != 0) {
-            int temp = x % divide;
-            x = x - temp;
-            numberMap.put(divide, temp);
-            divide = divide * 10;
-        }
+        String stringx = String.valueOf(x);
+        StringBuilder sb = new StringBuilder(stringx);
+        String newx = sb.reverse().toString();
 
-        List<Integer> bitList = Arrays.asList(numberMap.keySet().toArray(new Integer[]{}));
-        Collections.sort(bitList);
-        int sum = 0;
-        for (int i = 0; i < bitList.size(); i++) {
-            int first = bitList.get(bitList.size() - i - 1) / 10;
-            int second = numberMap.get(bitList.get(i)) / (bitList.get(i) / 10);
-
-            sum = sum + first * second;
+        try {
+            int newnumber = Integer.valueOf(newx);
+            if (isnegative) {
+                newnumber = 0 - newnumber;
+            }
+            return newnumber;
+        } catch (Exception e) {
+            return 0;
         }
-        return sum;
+    }
+
+    public int reverse2(int x) {
+        long res = 0;
+        while (x != 0) {
+            res = res * 10 + x % 10;
+            x = x / 10;
+        }
+        return (int) res == res ? (int) res : 0;
     }
 
     public static void main(String[] args) {
-        reverse(54321);
+        System.out.print(reverse(1147483419));
     }
 }
