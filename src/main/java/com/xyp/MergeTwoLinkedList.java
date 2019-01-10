@@ -6,7 +6,7 @@ package com.xyp;
 public class MergeTwoLinkedList {
 
 
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode listNode = null;
 
         ListNode pointNode = null;
@@ -24,16 +24,13 @@ public class MergeTwoLinkedList {
                 needAdd = new ListNode(l1.val);
                 l1 = l1.next == null ? null : l1.next;
 
-            } else if (l1.val < l2.val) {
-
-                needAdd = new ListNode(l1.val);
-                l1 = l1.next == null ? null : l1.next;
-
-            } else {
-
+            } else if (l2.val <= l1.val) {
                 needAdd = new ListNode(l2.val);
                 l2 = l2.next == null ? null : l2.next;
 
+            } else if (l1.val < l2.val) {
+                needAdd = new ListNode(l1.val);
+                l1 = l1.next == null ? null : l1.next;
             }
 
             if (listNode == null) {
@@ -50,8 +47,31 @@ public class MergeTwoLinkedList {
 
     }
 
+    public static void main(String[] args) {
+        ListNode l11 = new ListNode(1);
 
-    public class ListNode {
+        ListNode l12 = new ListNode(2);
+        l11.next = l12;
+
+        ListNode l13 = new ListNode(4);
+        l12.next = l13;
+
+        ListNode l21 = new ListNode(1);
+
+        ListNode l22 = new ListNode(3);
+        l21.next = l22;
+
+        ListNode l23 = new ListNode(4);
+        l22.next = l23;
+
+        mergeTwoLists(l11, l21);
+
+        System.out.print("12");
+
+    }
+
+
+    public static class ListNode {
         int val;
 
         ListNode next;

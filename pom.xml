@@ -114,13 +114,8 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
-        </dependency
-        >
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>1.8.4</version>
         </dependency>
+
 
         <dependency>
             <groupId>commons-collections</groupId>
@@ -175,12 +170,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.derbysoft.dplatform</groupId>
-            <artifactId>dplatform-google-protocol</artifactId>
-            <version>2.0.2</version>
         </dependency>
 
 
@@ -253,12 +242,6 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.derbysoft</groupId>
-            <artifactId>dplatform-commons</artifactId>
-            <version>3.1.2</version>
         </dependency>
 
     </dependencies>

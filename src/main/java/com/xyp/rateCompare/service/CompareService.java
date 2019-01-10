@@ -1,24 +1,13 @@
 package com.xyp.rateCompare.service;
 
-import com.derbysoft.dplatform.google.protocol.dto.AvailRQCondition;
-import com.derbysoft.dplatform.google.protocol.dto.transaction.Transaction;
-import com.derbysoft.dplatform.google.protocol.service.GoogleHiltonCheckService;
+
 import com.xyp.rateCompare.model.CompareDataDTO;
 import com.xyp.rateCompare.model.CompareResultDto;
-import com.xyp.rateCompare.model.GoogleRateCheckDto;
-import com.xyp.rateCompare.model.THotelRateListing;
-import com.xyp.rateCompare.util.AvailRQConditionUtil;
-import com.xyp.rateCompare.util.DateTimeUtils;
-import com.xyp.rateCompare.util.GoogleRateCheckUtil;
 import com.xyp.readCVS.model.PriceAccuracyCVS;
-import com.xyp.readCVS.util.JsonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by DT288 on 2016/9/9.

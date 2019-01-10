@@ -1,8 +1,6 @@
 package com.xyp.LongestPalindromic;
 
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
