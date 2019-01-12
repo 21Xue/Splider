@@ -2,3 +2,8 @@ target
 .idea
 *.iml
 *.csv
+/bin/
+
+/.project
+/.settings
+/.classpath
