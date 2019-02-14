@@ -6,7 +6,7 @@ public class MyAtoi {
 
 
     public static void main(String[] args) {
-        String temp = "  -0012a42";
+        String temp = "0-1";
         System.out.print(myAtoi(temp));
     }
 
@@ -32,6 +32,7 @@ public class MyAtoi {
                 } else if (firstchar > '9') {
                     return result;
                 } else {
+                    haveflag = true;
                     if (negative) {
                         tempResult = tempResult * 10 - (firstchar - 48);
                         if (tempResult < Integer.MIN_VALUE) {
