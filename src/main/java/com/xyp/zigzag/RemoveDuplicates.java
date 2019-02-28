@@ -1,4 +1,4 @@
-package com.xyp;
+package com.xyp.zigzag;
 
 public class RemoveDuplicates {
 

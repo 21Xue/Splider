@@ -1,4 +1,4 @@
-package com.xyp;
+package com.xyp.zigzag;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;

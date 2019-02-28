@@ -1,4 +1,4 @@
-package com.xyp;
+package com.xyp.zigzag;
 
 import java.util.ArrayList;
 import java.util.Collections;

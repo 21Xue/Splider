@@ -1,4 +1,4 @@
-package com.xyp;
+package com.xyp.zigzag;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

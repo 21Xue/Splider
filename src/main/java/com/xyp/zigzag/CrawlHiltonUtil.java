@@ -1,4 +1,4 @@
-package com.xyp;
+package com.xyp.zigzag;
 
 /**
  * Created by DT241 on 2017/4/27.
