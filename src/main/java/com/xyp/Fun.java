@@ -1,9 +1,26 @@
 package com.xyp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by DT288 on 2016/9/8.
  */
 public class Fun {
+
+    public static void main(String[] args) {
+        Map<Integer, Integer> sumMap = new HashMap<>();
+        for (int i = 0; i < 255; i++) {
+            int yu = i % 10;
+            if (sumMap.get(yu) != null) {
+                int plusOne = sumMap.get(yu) + 1;
+                sumMap.put(yu, plusOne);
+            } else {
+                sumMap.put(yu, 1);
+            }
+        }
+        System.out.print("Done");
+    }
 
 //    private static Pattern p = Pattern.compile("[^.0-9\\s]");
 //
